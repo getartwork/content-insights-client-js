@@ -1,5 +1,5 @@
 {
-  "name": "@zalando/content-insights-client",
+  "name": "@zalando-fcp/content-insights-client",
   "version": "0.0.1",
   "description": "The content insights api client",
   "main": "lib/content-insights-client.js",
