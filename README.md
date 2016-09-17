@@ -7,7 +7,17 @@
 #### with Npm
 
 ```
-npm install --save content-insights-client-js
+npm install --save @zalando-fcp/content-insights-client
+```
+
+### Usage
+
+```
+import ContentInsightsApi from 'content-insights-client'
+...
+
+const client = new ContentInsightsApi('http://contents-insights-api-host/')
+...
 ```
 
 ## Development
