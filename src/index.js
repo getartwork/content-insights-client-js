@@ -5,9 +5,9 @@ export default class ContentInsightsApi {
   constructor(host) {
     this._name = 'ContentInsights';
     this.host = host;
-    this.tokenName = 'content-insights-api-token';
+    this.tokenName = 'content-insights-service';
     this.tokens = manageTokens({
-      'content_insights_service.read': { scope: ['uid'] }
+      'content-insights-service': { scope: ['content_insights_service.read', 'uid'] }
     }, {
       credentialsDir: process.env.CREDENTIALS_DIR || '.',
       oauthTokeninfoUrl: 'https://info.services.auth.zalando.com/oauth2/tokeninfo?access_token=',
