@@ -1,6 +1,6 @@
 {
   "name": "@zalando-fcp/content-insights-client",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "The content insights api client",
   "main": "lib/content-insights-client.js",
   "scripts": {
