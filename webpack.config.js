@@ -44,7 +44,8 @@ var config = {
   },
   externals: {
     'node-tokens': 'node-tokens',
-    'node-fetch': 'node-fetch'
+    'request': 'request',
+    'request-promise-native': 'request-promise-native'
   },
   plugins: plugins
 };

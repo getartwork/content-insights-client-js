@@ -41,7 +41,8 @@
   },
   "homepage": "https://github.com/zalando-incubator/content-insights-client-js",
   "dependencies": {
-    "node-fetch": "^1.6.1",
-    "node-tokens": "0.0.9"
+    "node-tokens": "0.0.9",
+    "request": "^2.75.0",
+    "request-promise-native": "^1.0.3"
   }
 }

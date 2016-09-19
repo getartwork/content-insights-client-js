@@ -1,24 +1,27 @@
 const manageTokens = require('node-tokens');
-const request = require('request');
+const request = require('request-promise-native');
 
 export default class ContentInsightsApi {
   constructor(host, tokenName, tokenConfig, agentConfig) {
     this._name = 'ContentInsights';
     this.host = host;
     this.tokenName = tokenName || 'mint';
-    this.agentConfig = agentConfig || {}
+    this.agentConfig = agentConfig || {};
     this.tokens = manageTokens({
       'kio': { scope: ['uid'] },
       'mint': { scope: ['uid'] }
     }, tokenConfig);
   }
 
-  get(path) {
+  get(path, parameters) {
     return request({
-      url: this.host + path,
+      uri: this.host + path,
+      qs: parameters,
       headers: this.getAuthHeaders(this.tokenName),
-      agentOptions: this.agentConfig
-    }, {headers}).then(response => {
+      agentOptions: this.agentConfig,
+      resolveWithFullResponse: true,
+      simple: false
+    }).then(response => {
       return response.json().then(json => ({ json, response }));
     });
   }
@@ -37,57 +40,57 @@ export default class ContentInsightsApi {
   }
 
   search(query, start, end, limit, offset, domain, sort) {
-    var parameters = [];
+    var parameters = { q: query };
 
     if (start !== undefined) {
-      parameters.push(`start=${encodeURIComponent(start)}`);
+      parameters.start = start;
     }
     if (end !== undefined) {
-      parameters.push(`end=${encodeURIComponent(end)}`);
+      parameters.end = end;
     }
     if (limit !== undefined) {
-      parameters.push(`limit=${encodeURIComponent(limit)}`);
+      parameters.limit = limit;
     }
     if (offset !== undefined) {
-      parameters.push(`offset=${encodeURIComponent(offset)}`);
+      parameters.offset = offset;
     }
     if (domain !== undefined) {
-      parameters.push(`domain=${encodeURIComponent(domain)}`);
+      parameters.domain = domain;
     }
     if (sort !== undefined) {
-      parameters.push(`sort=${encodeURIComponent(sort)}`);
+      parameters.sort = sort;
     }
-    return this.get(`/api/content-articles-search?q=${encodeURIComponent(query)}&${parameters.join('&')}`);
+    return this.get('/api/content-articles-search', parameters);
   }
 
   timeseries(query, start, end, limit, offset, domain, sort, timeWindow, normalizeEntities) {
-    var parameters = [];
+    var parameters = { q: query };
 
     if (start !== undefined) {
-      parameters.push(`start=${encodeURIComponent(start)}`);
+      parameters.start = start;
     }
     if (end !== undefined) {
-      parameters.push(`end=${encodeURIComponent(end)}`);
+      parameters.end = end;
     }
     if (limit !== undefined) {
-      parameters.push(`limit=${encodeURIComponent(limit)}`);
+      parameters.limit = limit;
     }
     if (offset !== undefined) {
-      parameters.push(`offset=${encodeURIComponent(offset)}`);
+      parameters.offset = offset;
     }
     if (domain !== undefined) {
-      parameters.push(`domain=${encodeURIComponent(domain)}`);
+      parameters.domain = domain;
     }
     if (sort !== undefined) {
-      parameters.push(`sort=${encodeURIComponent(sort)}`);
+      parameters.sort = sort;
     }
     if (timeWindow !== undefined) {
-      parameters.push(`window=${encodeURIComponent(timeWindow)}`);
+      parameters.window = timeWindow;
     }
     if (normalizeEntities !== undefined) {
-      parameters.push(`normalize_entities=${normalizeEntities}`);
+      parameters['normalize_entities'] = normalizeEntities;
     }
-    return this.get(`/api/content-articles-timeseries?q=${encodeURIComponent(query)}&${parameters.join('&')}`);
+    return this.get('/api/content-articles-timeseries', parameters);
   }
 
   article(id) {
