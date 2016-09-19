@@ -21,10 +21,6 @@ export default class ContentInsightsApi {
       agentOptions: this.agentConfig,
       resolveWithFullResponse: true,
       simple: false
-    }).then(response => {
-      var json = JSON.parse(response.body);
-
-      return ({ json, response });
     });
   }
 
