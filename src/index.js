@@ -2,17 +2,18 @@ const manageTokens = require('node-tokens');
 const fetch = require('node-fetch');
 
 export default class ContentInsightsApi {
-  constructor(host) {
+  constructor(host, config) {
     this._name = 'ContentInsights';
     this.host = host;
     this.tokenName = 'content-insights-service';
+
+    config.credentialsDir = process.env.CREDENTIALS_DIR || '.'
+    config.oauthTokeninfoUrl = 'https://info.services.auth.zalando.com/oauth2/tokeninfo?access_token='
+    config.oauthTokenUrl = 'https://token.services.auth.zalando.com/oauth2/access_token?realm=/services'
+
     this.tokens = manageTokens({
       'content-insights-service': { scope: ['content_insights_service.read', 'uid'] }
-    }, {
-      credentialsDir: process.env.CREDENTIALS_DIR || '.',
-      oauthTokeninfoUrl: 'https://info.services.auth.zalando.com/oauth2/tokeninfo?access_token=',
-      oauthTokenUrl: 'https://token.services.auth.zalando.com/oauth2/access_token?realm=/services'
-    });
+    }, config);
   }
 
   get(path) {
