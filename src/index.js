@@ -22,7 +22,9 @@ export default class ContentInsightsApi {
       resolveWithFullResponse: true,
       simple: false
     }).then(response => {
-      return response.json().then(json => ({ json, response }));
+      var json = JSON.parse(response.body);
+
+      return ({ json, response });
     });
   }
 
