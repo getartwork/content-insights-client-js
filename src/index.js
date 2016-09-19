@@ -1,11 +1,12 @@
 const manageTokens = require('node-tokens');
-const fetch = require('node-fetch');
+const request = require('request');
 
 export default class ContentInsightsApi {
-  constructor(host, tokenName, tokenConfig) {
+  constructor(host, tokenName, tokenConfig, agentConfig) {
     this._name = 'ContentInsights';
     this.host = host;
     this.tokenName = tokenName || 'mint';
+    this.agentConfig = agentConfig || {}
     this.tokens = manageTokens({
       'kio': { scope: ['uid'] },
       'mint': { scope: ['uid'] }
@@ -13,9 +14,11 @@ export default class ContentInsightsApi {
   }
 
   get(path) {
-    var headers = this.getAuthHeaders(this.tokenName);
-
-    return fetch(this.host + path, {headers}).then(response => {
+    return request({
+      url: this.host + path,
+      headers: this.getAuthHeaders(this.tokenName),
+      agentOptions: this.agentConfig
+    }, {headers}).then(response => {
       return response.json().then(json => ({ json, response }));
     });
   }
@@ -29,8 +32,7 @@ export default class ContentInsightsApi {
     return {
       'Authorization': 'Bearer ' + token,
       'Accept': 'application/x.zalando.content-article+json',
-      'Content-Type': 'application/json',
-      'X-Tenant-Id': 'Dougal'
+      'Content-Type': 'application/json'
     };
   }
 
