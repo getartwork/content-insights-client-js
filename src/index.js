@@ -37,7 +37,7 @@ export default class ContentInsightsApi {
     };
   }
 
-  search(query, start, end, limit, offset, domain, sort) {
+  search(query, start, end, limit, offset, domain, sort, normalizeEntities) {
     var parameters = { q: query };
 
     if (start !== undefined) {
@@ -58,7 +58,10 @@ export default class ContentInsightsApi {
     if (sort !== undefined) {
       parameters.sort = sort;
     }
-    return this.get('/api/content-articles-search', parameters);
+    if (normalizeEntities !== undefined) {
+      parameters['normalize_entities'] = normalizeEntities;
+    }
+    return this.get('/api/content-articles/search', parameters);
   }
 
   timeseries(query, start, end, limit, offset, domain, sort, timeWindow, normalizeEntities) {
@@ -88,10 +91,15 @@ export default class ContentInsightsApi {
     if (normalizeEntities !== undefined) {
       parameters['normalize_entities'] = normalizeEntities;
     }
-    return this.get('/api/content-articles-timeseries', parameters);
+    return this.get('/api/content-articles/timeseries', parameters);
   }
 
-  article(id) {
+  article(id, normalizeEntities) {
+    var parameters = {};
+
+    if (normalizeEntities !== undefined) {
+      parameters['normalize_entities'] = normalizeEntities;
+    }
     return this.get(`/api/content-articles/${id}`);
   }
 
