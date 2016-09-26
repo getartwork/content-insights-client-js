@@ -61,7 +61,7 @@ export default class ContentInsightsApi {
     if (normalizeEntities !== undefined) {
       parameters['normalize_entities'] = normalizeEntities;
     }
-    return this.get('/api/content-articles-search', parameters);
+    return this.get('/api/content-articles/search', parameters);
   }
 
   timeseries(query, start, end, limit, offset, domain, sort, timeWindow, normalizeEntities) {
@@ -91,7 +91,7 @@ export default class ContentInsightsApi {
     if (normalizeEntities !== undefined) {
       parameters['normalize_entities'] = normalizeEntities;
     }
-    return this.get('/api/content-articles-timeseries', parameters);
+    return this.get('/api/content-articles/timeseries', parameters);
   }
 
   article(id, normalizeEntities) {
