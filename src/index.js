@@ -2,9 +2,10 @@ const manageTokens = require('node-tokens');
 const request = require('request-promise-native');
 
 export default class ContentInsightsApi {
-  constructor(host, tokenName, tokenConfig, agentConfig) {
+  constructor(host, apiKey, tokenName, tokenConfig, agentConfig) {
     this._name = 'ContentInsights';
     this.host = host;
+    this.apiKey = apiKey;
     this.tokenName = tokenName || 'mint';
     this.agentConfig = agentConfig || {};
     this.tokens = manageTokens({
@@ -32,6 +33,7 @@ export default class ContentInsightsApi {
     }
     return {
       'Authorization': 'Bearer ' + token,
+      'Api-Key': this.apiKey,
       'Accept': 'application/x.zalando.content-article+json',
       'Content-Type': 'application/json'
     };
