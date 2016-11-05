@@ -63,7 +63,7 @@ export default class ContentInsightsApi {
     if (normalizeEntities !== undefined) {
       parameters['normalize_entities'] = normalizeEntities;
     }
-    return this.get('/api/content-articles/search', parameters);
+    return this.get('/content/search', parameters);
   }
 
   timeseries(query, start, end, limit, offset, domain, sort, timeWindow, normalizeEntities) {
@@ -93,7 +93,7 @@ export default class ContentInsightsApi {
     if (normalizeEntities !== undefined) {
       parameters['normalize_entities'] = normalizeEntities;
     }
-    return this.get('/api/content-articles/timeseries', parameters);
+    return this.get('/content/timeseries', parameters);
   }
 
   article(id, normalizeEntities) {
@@ -102,7 +102,7 @@ export default class ContentInsightsApi {
     if (normalizeEntities !== undefined) {
       parameters['normalize_entities'] = normalizeEntities;
     }
-    return this.get(`/api/content-articles/${id}`);
+    return this.get(`/content/${id}`);
   }
 
 }
