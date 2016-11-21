@@ -16,7 +16,7 @@ npm install --save @zalando-fcp/content-insights-client
 import ContentInsightsApi from 'content-insights-client'
 ...
 
-const client = new ContentInsightsApi('http://contents-insights-api-host/', 'MY_FCP_API_KEY')
+const client = new ContentInsightsApi('http://contents-insights-api-host/', 'MY_FCP_TENANT_ID')
 ...
 ```
 
